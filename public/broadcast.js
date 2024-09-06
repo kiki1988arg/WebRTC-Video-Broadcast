@@ -1,3 +1,6 @@
+
+const urlParams = new URLSearchParams(window.location.search);
+const myParam = urlParams.get('user');
 const peerConnections = {};
 const config = {
   iceServers: [
@@ -61,8 +64,8 @@ audioSelect.onchange = getStream;
 videoSelect.onchange = getStream;
 
 getStream()
-  .then(getDevices)
-  .then(gotDevices);
+  // .then(getDevices)
+  // .then(gotDevices);
 
 function getDevices() {
   return navigator.mediaDevices.enumerateDevices();
