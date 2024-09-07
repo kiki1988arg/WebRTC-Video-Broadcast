@@ -1,30 +1,39 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Broadcaster</title>
-    <meta charset="UTF-8" />
-  </head>
-  <body>
+
+<head>
+  <title>Broadcaster</title>
+  <meta charset="UTF-8" />
+</head>
+<style>
+  div#content {
+      height: 275px;
+    }
+
+div#content video {
+  width: 425px;
+  height: 280px;
+}
+</style>
+
+<body>
+  <div id="content">
+
+
+    <video  playsinline autoplay muted></video>
+        <section style="display: none;"  class="select">
+          <label for="audioSource">Audio source: </label>
+          <select id="audioSource"></select>
+        </section>
     
-    <section style="visibility: hidden;" class="select">
-      <label for="audioSource">Audio source: </label>
-      <select id="audioSource"></select>
-    </section>
+        <section style="display: none;"  class="select">
+          <label for="videoSource">Video source: </label>
+          <select id="videoSource"></select>
+        </section>
+  </div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/broadcast.js"></script>
+</body>
 
-    <section style="visibility: hidden;" class="select">
-      <label for="videoSource">Video source: </label>
-      <select id="videoSource"></select>
-    </section>
 
-    <video style="
-    height: 168px;
-    width: 228px;
-    left: 50%;
-    position: absolute;
-    transform: translateX(-50%);
-    " playsinline autoplay muted></video>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/broadcast.js"></script>
-  </body>
-  
 </html>
