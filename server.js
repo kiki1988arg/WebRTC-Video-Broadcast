@@ -12,12 +12,12 @@ app.use(express.static(__dirname + "/public"));
 
 io.sockets.on("error", e => console.log(e));
 io.sockets.on("connection", socket => {
-  socket.on("broadcaster", () => {
-    broadcaster = socket.id;
+  socket.on("broadcaster", (user) => {
+    socket.join(user)
     socket.broadcast.emit("broadcaster");
   });
-  socket.on("watcher", () => {
-    socket.to(broadcaster).emit("watcher", socket.id);
+  socket.on("watcher", (user) => {
+    socket.to(user).emit("watcher", socket.id);
   });
   socket.on("offer", (id, message) => {
     socket.to(id).emit("offer", socket.id, message);
@@ -28,7 +28,7 @@ io.sockets.on("connection", socket => {
   socket.on("candidate", (id, message) => {
     socket.to(id).emit("candidate", socket.id, message);
   });
-  socket.on("disconnect", () => {
+  socket.on("disconnect", (user) => {
     socket.to(broadcaster).emit("disconnectPeer", socket.id);
   });
 });

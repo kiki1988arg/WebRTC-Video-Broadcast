@@ -1,5 +1,5 @@
 const urlParams = new URLSearchParams(window.location.search);
-const myParam = urlParams.get('user');
+const user = urlParams.get('user');
 
 let peerConnection;
 const config = {
@@ -48,7 +48,7 @@ socket.on("candidate", (id, candidate) => {
 });
 
 socket.on("connect", () => {
-  socket.emit("watcher");
+  socket.emit("watcher",user);
 });
 
 socket.on("broadcaster", () => {

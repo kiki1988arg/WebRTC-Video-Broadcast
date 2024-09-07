@@ -1,6 +1,6 @@
 
 const urlParams = new URLSearchParams(window.location.search);
-const myParam = urlParams.get('user');
+const user = urlParams.get('user');
 const peerConnections = {};
 const config = {
   iceServers: [
@@ -30,7 +30,7 @@ socket.on("watcher", id => {
 
   peerConnection.onicecandidate = event => {
     if (event.candidate) {
-      socket.emit("candidate", id, event.candidate);
+      socket.emit("candidate", id, event.candidate, user);
     }
   };
 
@@ -64,8 +64,8 @@ audioSelect.onchange = getStream;
 videoSelect.onchange = getStream;
 
 getStream()
-  // .then(getDevices)
-  // .then(gotDevices);
+  .then(getDevices)
+  .then(gotDevices);
 
 function getDevices() {
   return navigator.mediaDevices.enumerateDevices();
@@ -113,7 +113,7 @@ function gotStream(stream) {
     option => option.text === stream.getVideoTracks()[0].label
   );
   videoElement.srcObject = stream;
-  socket.emit("broadcaster");
+  socket.emit("broadcaster",user);
 }
 
 function handleError(error) {
