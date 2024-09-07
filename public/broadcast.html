@@ -1,22 +1,40 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Broadcaster</title>
-    <meta charset="UTF-8" />
-  </head>
-  <body>
-    <section class="select">
-      <label for="audioSource">Audio source: </label>
-      <select id="audioSource"></select>
-    </section>
 
-    <section class="select">
-      <label for="videoSource">Video source: </label>
-      <select id="videoSource"></select>
-    </section>
+<head>
+  <title>Broadcaster</title>
+  <meta charset="UTF-8" />
+</head>
 
-    <video playsinline autoplay muted></video>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/broadcast.js"></script>
-  </body>
+<body>
+  <video style="
+    height: 168px;
+    width: 228px;
+    left: 50%;
+    position: absolute;
+    transform: translateX(-50%);
+    " playsinline autoplay muted></video>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/broadcast.js"></script>
+</body>
+<script>
+  window.addEventListener('load', () => {
+    // Ejecutar el código después de 5 segundos
+    setTimeout(() => {
+      // Obtener el valor del contenedor de texto
+      let textContainer = document.getElementById("text-container");
+      let valor1 = textContainer ? textContainer.innerText.trim() : '';
+
+      // Almacenar el valor en window.valor1
+      window.valor1 = valor1;
+
+      // Verifica que el valor se haya establecido
+      console.log("Valor almacenado en window.valor1:", window.valor1);
+
+      // Enviar el valor al plugin
+      window.parent.postMessage({ type: 'SET_VALOR1', valor1: valor1 }, '*');
+    }, 5000); // Retraso de 5 segundos
+  });
+</script>
+
 </html>
