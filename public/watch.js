@@ -12,7 +12,10 @@ const config = {
     //   "username": "TURN_USERNAME",
     //   "credential": "TURN_CREDENTIALS"
     // }
-  ]
+  ],
+  iceTransportPolicy: 'all',
+  bundlePolicy: 'max-bundle',
+  rtcpMuxPolicy: 'require'
 };
 
 const socket = io.connect(window.location.origin);
