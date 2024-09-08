@@ -4,22 +4,23 @@ const user = urlParams.get('user');
 let peerConnection;
 const config = {
   iceServers: [
-      { 
-        "urls": "stun:stun.l.google.com:19302",
-      },
-      // { 
-      //   "urls": "turn:TURN_IP?transport=tcp",
-      //   "username": "TURN_USERNAME",
-      //   "credential": "TURN_CREDENTIALS"
-      // }
+    {
+      "urls": "stun:stun.l.google.com:19302",
+    },
+    // { 
+    //   "urls": "turn:TURN_IP?transport=tcp",
+    //   "username": "TURN_USERNAME",
+    //   "credential": "TURN_CREDENTIALS"
+    // }
   ]
 };
 
 const socket = io.connect(window.location.origin);
 const video = document.querySelector("video");
-const enableAudioButton = document.querySelector("#enable-audio");
 
-enableAudioButton.addEventListener("click", enableAudio)
+const enableAudioButton = document.querySelector("#toggle-audio");
+enableAudioButton.addEventListener("click", toggleMute)
+
 
 socket.on("offer", (id, description) => {
   peerConnection = new RTCPeerConnection(config);
@@ -48,7 +49,7 @@ socket.on("candidate", (id, candidate) => {
 });
 
 socket.on("connect", () => {
-  socket.emit("watcher",user);
+  socket.emit("watcher", user);
 });
 
 socket.on("broadcaster", () => {
@@ -63,4 +64,18 @@ window.onunload = window.onbeforeunload = () => {
 function enableAudio() {
   console.log("Enabling audio")
   video.muted = false;
+}
+
+function toggleMute() {
+  var video = document.getElementById("video");
+  video.muted = !video.muted;
+  enableAudioButton.innerHTML = (video.muted) ? 'Unmute' : 'Mute';
+  toggleClass();
+}
+
+function toggleClass() {
+  if (enableAudioButton.className == "audio-on")
+    enableAudioButton.className = "audio-off";
+  else
+    enableAudioButton.className = "audio-on";
 }

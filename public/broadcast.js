@@ -4,7 +4,7 @@ const user = urlParams.get('user');
 const peerConnections = {};
 const config = {
   iceServers: [
-    { 
+    {
       "urls": "stun:stun.l.google.com:19302",
     },
     // { 
@@ -59,11 +59,15 @@ window.onunload = window.onbeforeunload = () => {
 const videoElement = document.querySelector("video");
 const audioSelect = document.querySelector("select#audioSource");
 const videoSelect = document.querySelector("select#videoSource");
+const enableAudioButton = document.querySelector("#toggle-audio");
+const enableVideoButton = document.querySelector("#toggle-video");
+enableAudioButton.addEventListener("click", toggleAudio);
+enableVideoButton.addEventListener("click", toggleVideo);
 
 audioSelect.onchange = getStream;
 videoSelect.onchange = getStream;
 
-getStream()
+var media = getStream()
   .then(getDevices)
   .then(gotDevices);
 
@@ -113,9 +117,50 @@ function gotStream(stream) {
     option => option.text === stream.getVideoTracks()[0].label
   );
   videoElement.srcObject = stream;
-  socket.emit("broadcaster",user);
+  socket.emit("broadcaster", user);
 }
 
 function handleError(error) {
   console.error("Error: ", error);
+}
+
+function toggleAudio() {
+  if (window.stream) {
+    var isMuted;
+    window.stream.getAudioTracks().forEach(track => {
+      track.enabled = !track.enabled;
+      isMuted = track.enabled;
+    });
+    enableAudioButton.innerHTML = (isMuted) ? 'Mute' : 'Unmute';
+    toggleClass('audio')
+  }
+}
+
+function toggleVideo() {
+  if (window.stream) {
+    var isMuted;
+    window.stream.getVideoTracks().forEach(track => {
+      track.enabled = !track.enabled;
+      isMuted = track.enabled;
+    });
+    enableVideoButton.innerHTML = (isMuted) ? 'Ocultar cámara' : 'Mostrar cámara';
+    toggleClass('video')
+  }
+}
+
+function toggleClass(el) {
+  if (el == 'video') {
+    if (enableVideoButton.className == "audio-on")
+      enableVideoButton.className = "audio-off";
+    else
+      enableVideoButton.className = "audio-on";
+  }
+  else {
+
+    if (enableAudioButton.className == "audio-on")
+      enableAudioButton.className = "audio-off";
+    else
+      enableAudioButton.className = "audio-on";
+  }
+
 }

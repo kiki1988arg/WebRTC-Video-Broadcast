@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Viewer</title>
-    <meta charset="UTF-8" />
-    <link href="/styles.css" rel="stylesheet" />
-  </head>
-  <body>
-    <video style="width: 288px;
+
+<head>
+  <title>Viewer</title>
+  <meta charset="UTF-8" />
+  <link href="/styles.css" rel="stylesheet" />
+</head>
+<body>
+  <video id="video" style="width: 288px;
   height: 212px;" playsinline autoplay muted></video>
-    <button style="visibility:hidden" id="enable-audio">Enable audio</button>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/watch.js"></script>
-  </body>
+  <button id="toggle-audio" class="audio-off" style="position: absolute;
+  top: 185px;
+  left: 206px;">Unmute</button>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/watch.js"></script>
+</body>
+
 </html>
