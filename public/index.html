@@ -5,7 +5,13 @@
   <title>Viewer</title>
   <meta charset="UTF-8" />
   <link href="/styles.css" rel="stylesheet" />
+  <script>
+    if (window === window.parent) {
+      window.location.href = 'https://chateachat.com/'
+    }
+  </script>
 </head>
+
 <body>
   <video id="video" style="width: 288px;
   height: 212px;" playsinline autoplay muted></video>
