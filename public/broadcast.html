@@ -19,26 +19,27 @@
 </style>
 
 <body>
-  <div id="content">
+  <div id="content-broadcast">
 
     <video id="video" playsinline autoplay muted></video>
     <div style="    position: absolute;
- 
-    margin-left: 25px;    margin-top: -38px;
+    margin-left: 6px;
+    margin-top: 210px;
+    display: inline-flex;  
 ">
-    <button style="width: 160px;" class="audio-on" id="toggle-audio">Mute</button>
-    <button style="width: 160px;" class="audio-on" id="toggle-video">Ocultar cámara</button>
-  </div>
-      <section style="display: none;" class="select">
-        <label for="audioSource">Audio source: </label>
-        <select id="audioSource"></select>
-      </section>
+      <button style="width: 130px;" class="audio-on" id="toggle-audio">Mute</button>
+      <button style="width: 130px;margin-left: 13px;" class="audio-on" id="toggle-video">Ocultar cámara</button>
+    </div>
+    <section style="display: none;" class="select">
+      <label for="audioSource">Audio source: </label>
+      <select id="audioSource"></select>
+    </section>
 
-      <section style="display: none;" class="select">
-        <label for="videoSource">Video source: </label>
-        <select id="videoSource"></select>
-      </section>
- 
+    <section style="display: none;" class="select">
+      <label for="videoSource">Video source: </label>
+      <select id="videoSource"></select>
+    </section>
+
 
 
 

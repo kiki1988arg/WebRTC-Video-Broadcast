@@ -59,10 +59,11 @@ socket.on("broadcaster", () => {
   socket.emit("watcher");
 });
 
-window.onunload = window.onbeforeunload = () => {
-  socket.close();
+window.addEventListener("unload", (event) => {
+    socket.close();
   peerConnection.close();
-};
+});
+
 
 function enableAudio() {
   console.log("Enabling audio")
