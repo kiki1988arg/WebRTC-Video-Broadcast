@@ -2,12 +2,16 @@ const express = require("express");
 const app = express();
 
 let broadcaster;
-const port = 4000;
+const port = 3000;
 
 const http = require("http");
 const server = http.createServer(app);
 
-const io = require("socket.io")(server);
+const io = require("socket.io")(server,{
+  cors: {
+    origin: "http://localhost:4000"
+  }
+});
 app.use(express.static(__dirname + "/public"));
 
 io.sockets.on("error", e => console.log(e));
