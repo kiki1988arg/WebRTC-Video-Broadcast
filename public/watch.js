@@ -2,6 +2,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const user = urlParams.get('user');
 
 let peerConnection;
+
 const config = {
   iceServers: [
     {
